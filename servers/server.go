@@ -31,6 +31,7 @@ func (ser *Server) SetupRouter() *gin.Engine{
 	{
 		usersGroup.POST("createUser",ser.UserCreate)
 		usersGroup.GET("getAllUsers",middlewares.TokenAuthMiddleware(),ser.GetAllUsers)
+		usersGroup.GET("getUser/:id",ser.GetUser)
 		usersGroup.POST("login",ser.Login)
 	}
 	restaurantsGroup := router.Group("restaurants")

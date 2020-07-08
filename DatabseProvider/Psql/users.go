@@ -20,3 +20,12 @@ func (psql *PSqlDB) LoginUser(user *models.User) (bool, error) {
 		return true, nil
 	}
 }
+func (psql *PSqlDB) User(id int) (*models.User,error) {
+	var user models.User
+	if err := psql.Find(&user, "id = ?", id).Error; gorm.IsRecordNotFoundError(err){
+		return nil,err
+	}else{
+		return &user,nil
+	}
+
+}

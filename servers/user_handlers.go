@@ -7,6 +7,7 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
+	"strconv"
 	"time"
 )
 
@@ -39,6 +40,22 @@ func (ser *Server) GetAllUsers(c *gin.Context) {
 	users = ser.DB.AllUsers()
 	c.JSON(200, gin.H{
 		"Users": users,
+	})
+}
+func (ser *Server) GetUser(c *gin.Context){
+	//is Valid Token
+	var user *models.User
+	id := c.Param("id")
+	userId,err := strconv.Atoi(id)
+	if err!= nil{
+		fmt.Println(err)
+	}
+	user,err = ser.DB.User(userId)
+	if err != nil {
+		panic(err.Error())
+	}
+	c.JSON(200,gin.H{
+		"User": user,
 	})
 }
 func (ser *Server) Login(c *gin.Context) {
