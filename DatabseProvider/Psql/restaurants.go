@@ -10,3 +10,6 @@ func (psql *PSqlDB) AllRestaurants() []models.Restaurant {
 	psql.Preload("User").Find(&restaurants)
 	return restaurants
 }
+func (psql *PSqlDB) CreateMenu(menu *models.Menu) error {
+	return psql.Create(menu).Error
+}

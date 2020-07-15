@@ -17,8 +17,8 @@ type Restaurant struct {
 }
 type Menu struct {
 	gorm.Model
-	Restaurant   Restaurant
-	RestaurantID uint   `json:"restaurantsId"`
-	FoodName     string `json:"foodName"`
-	Price        int    `json:"price"`
+	Restaurant   Restaurant `gorm:"foreignkey:restaurant_id;association_foreignkey:id"`
+	RestaurantID uint       `json:"restaurantsId"`
+	FoodName     string     `json:"foodName"`
+	Price        int        `json:"price"`
 }

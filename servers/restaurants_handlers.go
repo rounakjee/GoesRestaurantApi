@@ -26,3 +26,17 @@ func (ser *Server) GetAllRestaurants(c *gin.Context) {
 		"AllRestaurants": restaurants,
 	})
 }
+func (ser *Server) MenuCreate(c *gin.Context) {
+	menu := models.Menu{}
+	err := c.BindJSON(&menu)
+	if err != nil {
+		panic(err.Error())
+	}
+	err = ser.DB.CreateMenu(&menu)
+	if err != nil {
+		panic(err.Error())
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"Menu": menu,
+	})
+}

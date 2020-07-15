@@ -11,4 +11,5 @@ type Database interface {
 	LoginUser(user *models.User) (bool, error)
 	CreateRestaurant(restaurant *models.Restaurant) error
 	AllRestaurants() []models.Restaurant
+	CreateMenu(menu *models.Menu) error
 }
