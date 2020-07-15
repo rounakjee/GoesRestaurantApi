@@ -36,16 +36,17 @@ func (ser *Server) SetupRouter() *gin.Engine{
 	}
 	restaurantsGroup := router.Group("restaurants")
 	{
-		restaurantsGroup.POST("createRestaurant",ser.restaurantCreate)
+		restaurantsGroup.POST("createRestaurant",ser.RestaurantCreate)
+		restaurantsGroup.GET("getAllRestaurants",ser.GetAllRestaurants)
 	}
 	return router
 }
 func InitialMigration(db *gorm.DB){
 
-	//db.AutoMigrate(&models.Test{})
-	db.CreateTable(&models.User{},&models.Restaurant{},&models.Menu{})
-	//db.CreateTable(&models.Restaurant{}).AddForeignKey("UserID", "users(id)", "RESTRICT", "RESTRICT")
-	//db.CreateTable(&models.Menu{})
+	db.CreateTable(&models.User{}) //,&models.Restaurant{},&models.Menu{})
+	db.CreateTable(&models.Restaurant{}) //.AddForeignKey("user_id", "users(id)", "RESTRICT", "RESTRICT")
+	db.CreateTable(&models.Menu{})
+	db.Model(&models.Restaurant{}).AddForeignKey("user_id", "users(id)", "RESTRICT", "RESTRICT")
 }
 
 
